@@ -4,7 +4,7 @@ const config = {
   user: "postgres",
   host: "localhost",
   password: "postgres",
-  database: "ftuno",
+  database: "pokemon",
   port: 5432,
 };
 
