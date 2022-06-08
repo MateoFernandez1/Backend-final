@@ -1,8 +1,13 @@
 const express = require("express");
 const db = require("./db/index");
+const cors = require("cors");
 
 const app = express();
+
 const PORT = 3500;
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/pokemon", async (req, res, next) => {
   try {
