@@ -1,25 +1,46 @@
 const express = require("express");
+const db = require("./db/index");
+const cors = require("cors");
 
 const app = express();
 
-const db = require("db");
-const { status } = require("express/lib/response");
+const PORT = 3500;
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const PORT = 3000;
-
-app.get("/", (req, res) => {
-  res.send("Hello, world!");
-});
-
-
-app.get("/pokemon", async (res, req, next) => { 
+app.get("/pokemon", async (req, res, next) => {
   try {
-    pokemons = await db. query("select * from pokemon");
+    const pokemons = await db.query(
+      `SELECT p.id pokemon_id,
+              p.nombre,
+              p.numero,
+              p.img,
+              p.tipo,
+              p.tipo2,
+              p.color,
+              p.color2,              
+              a.weight,
+              a.height,
+              a.ability,
+              p.info,
+              s.hp,
+              s.atk,
+              s.def,
+              s.satk,
+              s.sdef,
+              s.spd
+      FROM pokemon p
+      JOIN about a
+        ON a.id = p.about_id
+      JOIN stats s
+        ON s.id = p.stats_id `
+    );
+
     return res.status(200).json({ data: pokemons.rows });
-  } 
-    catch (error) {
-    return next(error)
+  } catch (error) {
+    return next(error);
   }
-})
+});
 
 app.listen(PORT, () => console.log(`App running in ${PORT}`));
