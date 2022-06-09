@@ -19,7 +19,7 @@ app.get("/pokemon", async (req, res, next) => {
               p.tipo,
               p.tipo2,
               p.color,
-              p.color2,              
+              p.color2,
               a.weight,
               a.height,
               a.ability,
