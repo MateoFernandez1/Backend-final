@@ -11,36 +11,80 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/pokemon", async (req, res, next) => {
   try {
-    const pokemons = await db.query(
-      `SELECT p.id pokemon_id,
-              p.nombre,
-              p.numero,
-              p.img,
-              p.tipo,
-              p.tipo2,
-              p.color,
-              p.color2,
-              a.weight,
-              a.height,
-              a.ability,
-              p.info,
-              s.hp,
-              s.atk,
-              s.def,
-              s.satk,
-              s.sdef,
-              s.spd
-      FROM pokemon p
-      JOIN about a
-        ON a.id = p.about_id
-      JOIN stats s
-        ON s.id = p.stats_id `
-    );
-
-    return res.status(200).json({ data: pokemons.rows });
+    return res.status(200).json({ data: pokemon });
   } catch (error) {
     return next(error);
   }
 });
 
+app.post("/pokemon", (req, res) => {
+  const newPokemon = req.body;
+
+  pokemon.push(newPokemon);
+  return res.send({ success: true, pokemon: pokemon });
+});
+
 app.listen(PORT, () => console.log(`App running in ${PORT}`));
+
+const pokemon = [
+  {
+    name: "",
+    img: "",
+    about: {
+      weight: 12,
+      height: 12,
+    },
+    stats: {
+      hp: 12,
+      sdk: 23,
+    },
+  },
+  {
+    name: "",
+    img: "",
+    about: {
+      weight: 12,
+      height: 12,
+    },
+    stats: {
+      hp: 12,
+      sdk: 23,
+    },
+  },
+  {
+    name: "",
+    img: "",
+    about: {
+      weight: 12,
+      height: 12,
+    },
+    stats: {
+      hp: 12,
+      sdk: 23,
+    },
+  },
+  {
+    name: "",
+    img: "",
+    about: {
+      weight: 12,
+      height: 12,
+    },
+    stats: {
+      hp: 12,
+      sdk: 23,
+    },
+  },
+  {
+    name: "",
+    img: "",
+    about: {
+      weight: 12,
+      height: 12,
+    },
+    stats: {
+      hp: 12,
+      sdk: 23,
+    },
+  },
+];
